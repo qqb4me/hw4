@@ -1,14 +1,10 @@
 package championship;
 
-import java.io.File;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        String csvPath = "data/fakePlayers.csv";
-        if (args.length > 0) {
-            csvPath = args[0];
-        }
+        String csvPath = args.length > 0 ? args[0] : "data/fakePlayers.csv";
 
         List<Player> players = PlayerReader.read(csvPath);
         IResolver resolver = new PlayerResolver(players);
@@ -23,7 +19,7 @@ public class Main {
         System.out.println("7. Агентство с мин суммой игроков: " + resolver.getAgencyWithMinPlayersCount());
         System.out.println("8. Самая грубая команда: " + resolver.getTheRudestTeam());
 
-        Charts.saveAll(players, "charts");
-        System.out.println("Графики сохранены в charts/");
+        Charts.saveChart(players, "charts/chart.png");
+        System.out.println("График сохранен в charts/chart.png");
     }
 }
